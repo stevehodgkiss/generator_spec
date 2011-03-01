@@ -4,11 +4,11 @@ class TestClass
   
 end
 
-describe GeneratorSpec::GeneratorExampleGroup do
+describe GeneratorSpec::TestCase do
   before do
     @klass = Class.new do
       self.should_receive(:subject).and_return(Proc.new {TestClass.new})
-      include GeneratorSpec::GeneratorExampleGroup
+      include GeneratorSpec::TestCase
     end
     @klass.test_case_instance = mock
   end
@@ -25,7 +25,7 @@ describe GeneratorSpec::GeneratorExampleGroup do
 end
 
 describe TestGenerator, "using normal assert methods" do
-  include GeneratorSpec::GeneratorExampleGroup
+  include GeneratorSpec::TestCase
 
   destination File.expand_path("../../tmp", __FILE__)
 

@@ -8,10 +8,10 @@ Add 'generator_spec' to Gemfile and use just like you would test generators in t
 
     # spec/lib/generators/test/test_generator_spec.rb
     
-    require "generator_spec/generator_example_group"
+    require "generator_spec/test_case"
     
     describe TestGenerator do
-      include GeneratorSpec::GeneratorExampleGroup
+      include GeneratorSpec::TestCase
 
       destination File.expand_path("../../tmp", __FILE__)
 
@@ -28,7 +28,7 @@ Add 'generator_spec' to Gemfile and use just like you would test generators in t
 An RSpec file matching DSL is also provided, taken with permission from [beard](https://github.com/carlhuda/beard/blob/master/spec/support/matcher.rb) by [carlhuda](https://github.com/carlhuda).
 
     describe TestGenerator, "using custom matcher" do
-      include GeneratorSpec::GeneratorExampleGroup
+      include GeneratorSpec::TestCase
 
       destination File.expand_path("../../tmp", __FILE__)
       

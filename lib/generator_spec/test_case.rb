@@ -4,7 +4,7 @@ require "fileutils"
 require "generator_spec/matcher"
 
 module GeneratorSpec
-  module GeneratorExampleGroup
+  module TestCase
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
     include Matcher

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe TestGenerator, "using custom matcher" do
-  include GeneratorSpec::GeneratorExampleGroup
+  include GeneratorSpec::TestCase
 
   destination File.expand_path("../../tmp", __FILE__)
 
