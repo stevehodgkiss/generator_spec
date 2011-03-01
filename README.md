@@ -1,10 +1,16 @@
 # Generator Spec
 
-Allows testing of Rails generators inside RSpec using standard Rails::Generators::TestCase assertion methods.
+Test Rails generators with RSpec using the standard Rails::Generators::TestCase assertion methods.
 
 # Usage
 
-Add 'generator_spec' to Gemfile and use just like you would test generators in test unit:
+Gemfile:
+
+    group :test do
+      gem "generator_spec"
+    end
+
+Spec:
 
     # spec/lib/generators/test/test_generator_spec.rb
     
