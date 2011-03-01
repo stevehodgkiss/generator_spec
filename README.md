@@ -50,6 +50,9 @@ An RSpec file matching DSL is also provided, taken with permission from [beard](
           directory "db" do
             directory "migrate" do
               file "123_create_tests.rb"
+              migration "create_tests" do
+                contains "class TestMigration"
+              end
             end
           end
         }
