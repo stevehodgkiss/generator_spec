@@ -1,6 +1,7 @@
 require "rspec/rails"
 require "rails/generators/test_case"
 require "fileutils"
+require "generator_spec/matcher"
 
 # Adapted from Rails::Generators::TestCase
 # https://github.com/rails/rails/blob/master/railties/lib/rails/generators/test_case.rb
@@ -9,6 +10,7 @@ module GeneratorSpec
   module GeneratorExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
+    include Matcher
     include FileUtils
   
     included do
