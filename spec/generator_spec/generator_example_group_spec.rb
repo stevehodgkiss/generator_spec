@@ -1,5 +1,29 @@
 require "spec_helper"
 
+class TestClass
+  
+end
+
+describe GeneratorSpec::GeneratorExampleGroup do
+  before do
+    @klass = Class.new do
+      self.should_receive(:subject).and_return(Proc.new {TestClass.new})
+      include GeneratorSpec::GeneratorExampleGroup
+    end
+    @klass.test_case_instance = mock
+  end
+  
+  it "passes unknown messages on to test_case_instance" do
+    @klass.test_case_instance.should_receive(:assert_file).with("test")
+    @klass.new.assert_file("test")
+  end
+  
+  it "handles respond_to accordingly" do
+    @klass.test_case_instance.should_receive(:respond_to?).with(:assert_no_file).and_return(true)
+    @klass.new.respond_to?(:assert_no_file).should be_true
+  end
+end
+
 describe TestGenerator, "using normal assert methods" do
   include GeneratorSpec::GeneratorExampleGroup
 
