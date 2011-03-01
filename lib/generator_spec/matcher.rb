@@ -1,7 +1,6 @@
 module GeneratorSpec
   module Matcher
-    # Author: Yahuda Katz
-    # Taken (with permission) from beard:
+    # Taken (with permission) from beard by Yahuda Katz
     # https://github.com/carlhuda/beard
   
     class File
