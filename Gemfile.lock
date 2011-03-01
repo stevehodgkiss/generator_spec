@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    generator_spec (0.0.1)
+    generator_spec (0.0.3)
       rails (~> 3.0)
       rspec-rails
 
