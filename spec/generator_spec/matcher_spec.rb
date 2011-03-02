@@ -250,6 +250,8 @@ module GeneratorSpec::Matcher
   end
   
   describe Root do
+    include FakeFS::SpecHelpers
+    
     describe "#matches?" do
       before do
         @root = Root.new "test" do
@@ -257,12 +259,12 @@ module GeneratorSpec::Matcher
         end
       end
       
-      it "returns false on no failures" do
+      it "returns true on no failures" do
         write_directory(TMP_ROOT.join("test/test_dir"))
         @root.matches?(TMP_ROOT).should be_true
       end
       
-      it "returns true on failures" do
+      it "returns false on failures" do
         @root.matches?(TMP_ROOT).should be_false
       end
     end
