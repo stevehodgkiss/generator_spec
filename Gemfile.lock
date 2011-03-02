@@ -40,6 +40,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    fakefs (0.3.1)
     i18n (0.5.0)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -89,4 +90,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fakefs
   generator_spec!
