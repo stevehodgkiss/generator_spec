@@ -18,8 +18,9 @@ Spec:
     
     describe TestGenerator do
       include GeneratorSpec::TestCase
-
       destination File.expand_path("../../tmp", __FILE__)
+      tests TestGenerator
+      arguments %w(something)
 
       before(:all) do
         prepare_destination
@@ -35,7 +36,7 @@ An RSpec file matching DSL is also provided, taken with permission from [beard](
 
     describe TestGenerator, "using custom matcher" do
       include GeneratorSpec::TestCase
-
+      tests TestGenerator
       destination File.expand_path("../../tmp", __FILE__)
       
       before do

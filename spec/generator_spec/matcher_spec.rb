@@ -2,9 +2,10 @@ require "spec_helper"
 
 describe TestGenerator, "using custom matcher" do
   include GeneratorSpec::TestCase
-
+  tests TestGenerator
   destination File.expand_path("../../tmp", __FILE__)
-
+  arguments %w(test)
+  
   before do
     prepare_destination
     run_generator

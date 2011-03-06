@@ -1,4 +1,5 @@
 class TestGenerator < Rails::Generators::Base
+  argument :name, :type => :string
   source_root File.expand_path('../templates', __FILE__)
   
   def copy_initializer

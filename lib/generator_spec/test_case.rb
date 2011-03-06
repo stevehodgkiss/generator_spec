@@ -13,7 +13,6 @@ module GeneratorSpec
     included do
       cattr_accessor :test_case, :test_case_instance
       self.test_case = Class.new(Rails::Generators::TestCase)
-      self.test_case.tests subject.call.class
       self.test_case_instance = self.test_case.new(:test)
     end
   
