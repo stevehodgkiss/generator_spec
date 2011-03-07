@@ -27,7 +27,7 @@ describe TestGenerator, "using normal assert methods" do
   include GeneratorSpec::TestCase
   tests TestGenerator
   destination File.expand_path("../../tmp", __FILE__)
-  arguments %w(test)
+  arguments %w(test --test)
   
   before(:all) do
     prepare_destination
@@ -44,5 +44,28 @@ describe TestGenerator, "using normal assert methods" do
 
   it "removes files" do
     assert_no_file ".gitignore"
+  end
+end
+
+describe TestGenerator, "with contexts" do
+  include GeneratorSpec::TestCase
+  tests TestGenerator
+  destination File.expand_path("../../tmp", __FILE__)
+  before { prepare_destination }
+  
+  context "with --test flag" do
+    before { run_generator %w(test --test) }
+    
+    it "creates a test initializer" do
+      assert_file "config/initializers/test.rb", "# Initializer"
+    end
+  end
+  
+  context "without any flags" do
+    before { run_generator %w(test) }
+    
+    it "doesn't create a test initializer" do
+      assert_no_file "config/initializers/test.rb"
+    end
   end
 end
