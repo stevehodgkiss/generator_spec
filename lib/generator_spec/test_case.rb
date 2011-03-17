@@ -12,8 +12,12 @@ module GeneratorSpec
   
     included do
       cattr_accessor :test_case, :test_case_instance
-      self.test_case = Class.new(Rails::Generators::TestCase)
-      self.test_case_instance = self.test_case.new(:test)
+      
+      self.test_case = Class.new(Rails::Generators::TestCase) do
+        def fake_test_case; end
+        def add_assertion; end
+      end
+      self.test_case_instance = self.test_case.new(:fake_test_case)
     end
   
     module ClassMethods
