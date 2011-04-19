@@ -1,6 +1,5 @@
 require "rspec/rails"
 require "rails/generators/test_case"
-require "fileutils"
 require "generator_spec/matcher"
 
 module GeneratorSpec
