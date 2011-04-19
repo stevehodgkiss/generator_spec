@@ -7,6 +7,7 @@ end
 describe GeneratorSpec::TestCase do
   before do
     @klass = Class.new do
+      self.should_receive(:described_class).and_return(TestClass)
       include GeneratorSpec::TestCase
     end
     @klass.test_case_instance = mock
@@ -25,7 +26,6 @@ end
 
 describe TestGenerator, "using normal assert methods" do
   include GeneratorSpec::TestCase
-  tests TestGenerator
   destination File.expand_path("../../tmp", __FILE__)
   arguments %w(test --test)
   
@@ -49,7 +49,6 @@ end
 
 describe TestGenerator, "with contexts" do
   include GeneratorSpec::TestCase
-  tests TestGenerator
   destination File.expand_path("../../tmp", __FILE__)
   before { prepare_destination }
   

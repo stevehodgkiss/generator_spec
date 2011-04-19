@@ -17,6 +17,7 @@ module GeneratorSpec
         def add_assertion; end
       end
       self.test_case_instance = self.test_case.new(:fake_test_case)
+      self.test_case.tests described_class
     end
   
     module ClassMethods
