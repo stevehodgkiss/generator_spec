@@ -30,6 +30,18 @@ describe TestGenerator, "using custom matcher" do
       end
     }
   end
+  
+  it "fails when it doesnt match" do
+    expect {
+      destination_root.should have_structure {
+        directory "db" do
+          directory "migrate" do
+            no_file "123_create_tests.rb"
+          end
+        end
+      }
+    }.to raise_error
+  end
 end
 
 TMP_ROOT = Pathname.new(File.expand_path("../../tmp"))
