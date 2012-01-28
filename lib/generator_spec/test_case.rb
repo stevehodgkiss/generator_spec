@@ -1,6 +1,6 @@
-require "rspec/rails"
-require "rails/generators/test_case"
-require "generator_spec/matcher"
+require 'rspec/rails'
+require 'rails/generators/test_case'
+require 'generator_spec/matcher'
 
 module GeneratorSpec
   module TestCase
