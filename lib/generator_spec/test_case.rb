@@ -34,17 +34,15 @@ module GeneratorSpec
       end
     end
   
-    module InstanceMethods
-      def method_missing(method_sym, *arguments, &block)
-        self.test_case_instance.send(method_sym, *arguments, &block)
-      end
-      
-      def respond_to?(method_sym, include_private = false)
-        if self.test_case_instance.respond_to?(method_sym)
-          true
-        else
-          super
-        end
+    def method_missing(method_sym, *arguments, &block)
+      self.test_case_instance.send(method_sym, *arguments, &block)
+    end
+
+    def respond_to?(method_sym, include_private = false)
+      if self.test_case_instance.respond_to?(method_sym)
+        true
+      else
+        super
       end
     end
   end
