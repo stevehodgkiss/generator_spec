@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.add_dependency "rails", ">= 3.0", "< 4.0"
-  s.add_dependency "rspec-rails"
+  s.add_dependency 'activerecord', ['>= 3.0', '< 4.0']
+  s.add_dependency 'railties', ['>= 3.0', '< 4.0']
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'fakefs', '~> 0.3.1'
 end

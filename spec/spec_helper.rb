@@ -1,6 +1,6 @@
 require 'bundler/setup'
-require 'rails/all'
-require 'rspec/rails'
+require 'active_record'
+require 'rspec'
 require 'generator_spec/test_case'
 require 'fakefs/spec_helpers'
 
