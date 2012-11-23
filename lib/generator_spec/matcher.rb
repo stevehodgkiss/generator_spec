@@ -43,7 +43,7 @@ module GeneratorSpec
         file_name = migration_file_name(root, @name)
         
         unless file_name && file_name.exist?
-          throw :failure, file_name
+          throw :failure, @name
         end
         
         check_contents(file_name)
