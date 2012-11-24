@@ -1,6 +1,7 @@
 module Helpers
   module FileSystem
     def write_file(file_name, contents)
+      write_directory(TMP_ROOT)
       ::File.open(file_name.to_s, 'w') {|f| f.write(contents) }
     end
     

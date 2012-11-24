@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'activerecord', ['>= 3.0', '< 4.0']
   s.add_dependency 'railties', ['>= 3.0', '< 4.0']
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'fakefs', '~> 0.3.1'
+  s.add_development_dependency 'fakefs', '~> 0.4.1'
 end
