@@ -1,5 +1,4 @@
 require 'active_record'
-require 'rspec'
 require 'rails/generators/test_case'
 require 'generator_spec/matcher'
 
