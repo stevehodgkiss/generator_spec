@@ -1,3 +1,5 @@
-class TestMigration < ActiveRecord::Migration
+if defined?(ActiveRecord)
+  class TestMigration < ActiveRecord::Migration
   
+  end
 end
