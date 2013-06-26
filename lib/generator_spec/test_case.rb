@@ -1,4 +1,4 @@
-require 'active_record'
+require 'active_support/all'
 require 'rails/generators/test_case'
 require 'generator_spec/matcher'
 
