@@ -10,7 +10,7 @@ describe GeneratorSpec::TestCase do
       self.should_receive(:described_class).and_return(TestClass)
       include GeneratorSpec::TestCase
     end
-    @klass.test_case_instance = mock
+    @klass.test_case_instance = double
   end
   
   it 'passes unknown messages on to test_case_instance' do
