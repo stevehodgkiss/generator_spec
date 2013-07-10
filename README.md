@@ -12,15 +12,14 @@ group :test do
 end
 ```
 
-Spec:
+Spec (files in `spec/lib/generators` are recognized as generator type example group):
 
 ```ruby
 # spec/lib/generators/test/test_generator_spec.rb
     
-require "generator_spec/test_case"
+require "generator_spec"
 
 describe TestGenerator do
-  include GeneratorSpec::TestCase
   destination File.expand_path("../../tmp", __FILE__)
   arguments %w(something)
 
@@ -38,8 +37,7 @@ end
 An RSpec file matching DSL is also provided, taken with permission from [beard](https://github.com/carlhuda/beard/blob/master/spec/support/matcher.rb) by [carlhuda](https://github.com/carlhuda).
 
 ```ruby
-describe TestGenerator, "using custom matcher" do
-  include GeneratorSpec::TestCase
+describe TestGenerator, "using custom matcher", type: :generator do
   destination File.expand_path("../../tmp", __FILE__)
   
   before do
