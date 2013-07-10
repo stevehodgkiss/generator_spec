@@ -8,5 +8,9 @@ module Helpers
     def write_directory(name)
       FileUtils.mkdir_p(name)
     end
+
+    def delete_directory(name)
+      FileUtils.rm_rf(name)
+    end
   end
 end

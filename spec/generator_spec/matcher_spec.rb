@@ -1,11 +1,15 @@
 require 'spec_helper'
+require 'tmpdir'
+
+TMP_ROOT = Pathname.new(Dir.tmpdir)
 
 describe TestGenerator, 'using custom matcher' do
   include GeneratorSpec::TestCase
-  destination File.expand_path('../../tmp', __FILE__)
+  destination TMP_ROOT
   arguments %w(test --test)
 
   before do
+    delete_directory(TMP_ROOT)
     prepare_destination
     run_generator
   end
@@ -44,13 +48,13 @@ describe TestGenerator, 'using custom matcher' do
   end
 end
 
-TMP_ROOT = Pathname.new(File.expand_path('../../tmp', __FILE__))
-
 module GeneratorSpec
   module Matcher
     describe File do
       describe '#matches?' do
-        include FakeFS::SpecHelpers
+        before do
+          delete_directory(TMP_ROOT)
+        end
 
         let(:file) { File.new('test_file') }
         let(:location) { TMP_ROOT.join('test_file') }
@@ -93,9 +97,11 @@ module GeneratorSpec
     end
 
     describe Migration do
-      include FakeFS::SpecHelpers
-
       describe '#matches?' do
+        before do
+          delete_directory(TMP_ROOT)
+        end
+
         let(:migration) { Migration.new('create_posts') }
         let(:location) { TMP_ROOT.join('123456_create_posts.rb') }
 
@@ -137,8 +143,6 @@ module GeneratorSpec
     end
 
     describe Directory do
-      include FakeFS::SpecHelpers
-
       describe '#location' do
         it 'equals the full path' do
           Directory.new('test').location('test_2').should eq('test/test_2')
@@ -188,6 +192,10 @@ module GeneratorSpec
       end
 
       describe '#matches?' do
+        before do
+          delete_directory(TMP_ROOT)
+        end
+
         context 'with a directory name' do
           let(:dir) {
             Directory.new 'test' do
@@ -219,6 +227,7 @@ module GeneratorSpec
           }
 
           before do
+            delete_directory(TMP_ROOT)
             write_directory(TMP_ROOT.join('test/test_2'))
           end
 
@@ -243,6 +252,7 @@ module GeneratorSpec
             end
           }
           before do
+            delete_directory(TMP_ROOT)
             write_directory(TMP_ROOT.join('test'))
           end
 
@@ -264,9 +274,11 @@ module GeneratorSpec
     end
 
     describe Root do
-      include FakeFS::SpecHelpers
-
       describe '#matches?' do
+        before do
+          delete_directory(TMP_ROOT)
+        end
+
         let(:root) {
           Root.new 'test' do
             directory 'test_dir'
