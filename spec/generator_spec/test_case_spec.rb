@@ -24,8 +24,7 @@ describe GeneratorSpec::TestCase do
   end
 end
 
-describe TestGenerator, 'using normal assert methods' do
-  include GeneratorSpec::TestCase
+describe TestGenerator, 'using normal assert methods', :type => 'generator' do
   destination File.expand_path('../../tmp', __FILE__)
   arguments %w(test --test)
   
@@ -47,8 +46,7 @@ describe TestGenerator, 'using normal assert methods' do
   end
 end
 
-describe TestGenerator, 'with contexts' do
-  include GeneratorSpec::TestCase
+describe TestGenerator, 'with contexts', :type => 'generator' do
   destination File.expand_path('../../tmp', __FILE__)
   before { prepare_destination }
   
