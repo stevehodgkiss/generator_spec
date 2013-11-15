@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Steve Hodgkiss"]
   s.email       = ["steve@hodgkiss.me.uk"]
   s.homepage    = "https://github.com/stevehodgkiss/generator_spec"
+  s.license     = 'MIT'
   s.summary     = %q{Test Rails generators with RSpec}
   s.description = %q{Test Rails generators with RSpec}
 
