@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.add_dependency 'activesupport', ['>= 3.0.0']
   s.add_dependency 'railties', ['>= 3.0.0']
-  s.add_development_dependency 'rspec', '>= 2.14.0'
+  s.add_development_dependency 'rspec', '>= 2.99.0'
 end
