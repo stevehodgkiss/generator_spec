@@ -6,7 +6,5 @@ RSpec::configure do |c|
     Regexp.compile(parts.join('[\\\/]') + '[\\\/]')
   end
 
-  c.include GeneratorSpec::GeneratorExampleGroup, :type => :generator, :example_group => {
-    :file_path => c.escaped_path(%w[spec lib generators])
-  }
+  c.include GeneratorSpec::GeneratorExampleGroup, :type => :generator, :file_path => c.escaped_path(%w[spec lib generators])
 end
