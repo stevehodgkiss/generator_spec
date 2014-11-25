@@ -1,4 +1,4 @@
-# Generator Spec
+# Generator Spec [![Build Status](https://travis-ci.org/stevehodgkiss/generator_spec.svg?branch=master)](https://travis-ci.org/stevehodgkiss/generator_spec)
 
 Test Rails generators with RSpec using the standard Rails::Generators::TestCase assertion methods.
 
