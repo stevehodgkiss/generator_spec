@@ -7,20 +7,22 @@ end
 describe GeneratorSpec::TestCase do
   before do
     @klass = Class.new do
-      self.should_receive(:described_class).and_return(TestClass)
+      def self.described_class
+        TestClass
+      end
       include GeneratorSpec::TestCase
     end
     @klass.test_case_instance = double
   end
   
   it 'passes unknown messages on to test_case_instance' do
-    @klass.test_case_instance.should_receive(:assert_file).with('test')
+    expect(@klass.test_case_instance).to receive(:assert_file).with('test')
     @klass.new.assert_file('test')
   end
   
   it 'handles respond_to accordingly' do
-    @klass.test_case_instance.should_receive(:respond_to?).with(:assert_no_file).and_return(true)
-    @klass.new.respond_to?(:assert_no_file).should be_true
+    expect(@klass.test_case_instance).to receive(:respond_to?).with(:assert_no_file).and_return(true)
+    expect(@klass.new.respond_to?(:assert_no_file)).to be_truthy
   end
 end
 

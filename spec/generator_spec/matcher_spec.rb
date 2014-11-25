@@ -15,7 +15,7 @@ describe TestGenerator, 'using custom matcher' do
   end
 
   specify do
-    destination_root.should have_structure {
+    expect(destination_root).to have_structure {
       no_file 'test.rb'
       directory 'config' do
         directory 'initializers' do
@@ -37,7 +37,7 @@ describe TestGenerator, 'using custom matcher' do
 
   it 'fails when it doesnt match' do
     expect {
-      destination_root.should have_structure {
+      expect(destination_root).to have_structure {
         directory 'db' do
           directory 'migrate' do
             no_file '123_create_tests.rb'
@@ -145,7 +145,7 @@ module GeneratorSpec
     describe Directory do
       describe '#location' do
         it 'equals the full path' do
-          Directory.new('test').location('test_2').should eq('test/test_2')
+          expect(Directory.new('test').location('test_2')).to eq('test/test_2')
         end
       end
 
@@ -155,7 +155,7 @@ module GeneratorSpec
             dir = Directory.new 'test' do
               directory 'dir'
             end
-            dir.tree['dir'].should eq(false)
+            expect(dir.tree['dir']).to eq(false)
           end
         end
 
@@ -166,8 +166,8 @@ module GeneratorSpec
                 directory 'test_2'
               end
             end
-            dir.tree['dir'].should be_an_instance_of(Directory)
-            dir.tree['dir'].tree['test_2'].should eq(false)
+            expect(dir.tree['dir']).to be_an_instance_of(Directory)
+            expect(dir.tree['dir'].tree['test_2']).to eq(false)
           end
         end
       end
@@ -177,7 +177,7 @@ module GeneratorSpec
           dir = Directory.new 'test' do
             file 'test_file'
           end
-          dir.tree['test_file'].should be_an_instance_of(File)
+          expect(dir.tree['test_file']).to be_an_instance_of(File)
         end
       end
 
@@ -186,8 +186,8 @@ module GeneratorSpec
           dir = Directory.new 'test' do
             migration 'test_file'
           end
-          dir.tree['test_file'].should be_an_instance_of(Migration)
-          dir.tree['test_file'].instance_variable_get('@name').should eq('test/test_file')
+          expect(dir.tree['test_file']).to be_an_instance_of(Migration)
+          expect(dir.tree['test_file'].instance_variable_get('@name')).to eq('test/test_file')
         end
       end
 
@@ -287,11 +287,11 @@ module GeneratorSpec
 
         it 'returns true on no failures' do
           write_directory(TMP_ROOT.join('test/test_dir'))
-          root.matches?(TMP_ROOT).should be_true
+          expect(root.matches?(TMP_ROOT)).to be_truthy
         end
 
         it 'returns false on failures' do
-          root.matches?(TMP_ROOT).should be_false
+          expect(root.matches?(TMP_ROOT)).to be_falsey
         end
       end
     end
