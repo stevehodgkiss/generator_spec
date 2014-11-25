@@ -4,6 +4,8 @@ cache: bundler
 rvm:
   - 2.1
   - 2.0.0
-  - 1.9.3
-  - jruby-19mode
-  - rbx
+  - jruby
+  - rbx-2
+matrix:
+  allow_failures:
+    - rvm: jruby
