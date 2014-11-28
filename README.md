@@ -19,7 +19,7 @@ Spec (files in `spec/lib/generators` are recognized as generator type example gr
     
 require "generator_spec"
 
-describe TestGenerator do
+describe TestGenerator, type: :generator do
   destination File.expand_path("../../tmp", __FILE__)
   arguments %w(something)
 
