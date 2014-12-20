@@ -46,7 +46,7 @@ describe TestGenerator, "using custom matcher", type: :generator do
   end
 
   specify do
-    destination_root.should have_structure {
+    expect(destination_root).to have_structure {
       no_file "test.rb"
       directory "config" do
         directory "initializers" do
