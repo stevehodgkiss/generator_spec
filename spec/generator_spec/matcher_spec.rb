@@ -46,6 +46,18 @@ describe TestGenerator, 'using custom matcher' do
       }
     }.to raise_error
   end
+
+  it 'fails when it doesnt match with do/end instead of {}' do
+    expect {
+      expect(destination_root).to have_structure do
+        directory 'db' do
+          directory 'migrate' do
+            no_file '123_create_tests.rb'
+          end
+        end
+      end
+    }.to raise_error RuntimeError, /You must pass a block/
+  end
 end
 
 module GeneratorSpec

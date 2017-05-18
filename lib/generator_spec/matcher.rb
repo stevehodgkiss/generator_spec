@@ -131,6 +131,8 @@ module GeneratorSpec
     end
 
     def have_structure(&block)
+      error = 'You must pass a block to have_structure (Use {} instead of do/end!)'
+      raise RuntimeError, error unless block_given?
       Root.new(&block)
     end
   end
