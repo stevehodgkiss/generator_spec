@@ -44,7 +44,7 @@ describe TestGenerator, 'using custom matcher' do
           end
         end
       }
-    }.to raise_error
+    }.to raise_error RSpec::Expectations::ExpectationNotMetError
   end
 
   it 'fails when it doesnt match with do/end instead of {}' do
