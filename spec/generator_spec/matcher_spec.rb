@@ -105,6 +105,26 @@ module GeneratorSpec
             }.to throw_symbol(:failure)
           end
         end
+
+        context 'with does_not_contain' do
+          before do
+            write_file(location, 'class CreatePosts')
+          end
+
+          it 'doesnt throw if the contents dont include the string' do
+            file.does_not_contain 'PostsMigration'
+            expect {
+              file.matches?(TMP_ROOT)
+            }.to_not throw_symbol
+          end
+
+          it 'throws :failure if the contents include the string' do
+            file.does_not_contain 'CreatePosts'
+            expect {
+              file.matches?(TMP_ROOT)
+            }.to throw_symbol(:failure)
+          end
+        end
       end
     end
 
@@ -146,6 +166,26 @@ module GeneratorSpec
 
           it 'throws failure if the migration doesnt include the given content' do
             migration.contains('CreateNotes')
+            expect {
+              migration.matches?(TMP_ROOT)
+            }.to throw_symbol(:failure)
+          end
+        end
+
+        context 'with does_not_contain' do
+          before do
+            write_file(location, 'class CreatePosts')
+          end
+
+          it 'doesnt throw if the migration doesnt include the given content' do
+            migration.does_not_contain('CreateNotes')
+            expect {
+              migration.matches?(TMP_ROOT)
+            }.to_not throw_symbol
+          end
+
+          it 'throws failure if the migration includes the given content' do
+            migration.does_not_contain('CreatePosts')
             expect {
               migration.matches?(TMP_ROOT)
             }.to throw_symbol(:failure)
