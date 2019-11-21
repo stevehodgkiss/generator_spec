@@ -16,7 +16,7 @@ Spec (files in `spec/lib/generators` are recognized as generator type example gr
 
 ```ruby
 # spec/lib/generators/test/test_generator_spec.rb
-    
+
 require "generator_spec"
 
 describe TestGenerator, type: :generator do
@@ -33,13 +33,13 @@ describe TestGenerator, type: :generator do
   end
 end
 ```
-    
+
 An RSpec file matching DSL is also provided, taken with permission from [beard](https://github.com/carlhuda/beard/blob/master/spec/support/matcher.rb) by [carlhuda](https://github.com/carlhuda).
 
 ```ruby
 describe TestGenerator, "using custom matcher", type: :generator do
   destination File.expand_path("../../tmp", __FILE__)
-  
+
   before do
     prepare_destination
     run_generator
@@ -52,6 +52,7 @@ describe TestGenerator, "using custom matcher", type: :generator do
         directory "initializers" do
           file "test.rb" do
             contains "# Initializer"
+            does_not_contain "Something else"
           end
         end
       end
@@ -60,6 +61,7 @@ describe TestGenerator, "using custom matcher", type: :generator do
           file "123_create_tests.rb"
           migration "create_tests" do
             contains "class TestMigration"
+            does_not_contain "Something else"
           end
         end
       end
