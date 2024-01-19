@@ -2,7 +2,7 @@ module GeneratorSpec
   module Matcher
     # Taken (with permission) from beard by Yahuda Katz
     # https://github.com/carlhuda/beard
-  
+
     class File
       def initialize(name, &block)
         @contents = []
@@ -24,9 +24,9 @@ module GeneratorSpec
 
         check_contents(root.join(@name))
       end
-      
+
       protected
-      
+
       def check_contents(file)
         contents = ::File.read(file)
 
@@ -37,20 +37,20 @@ module GeneratorSpec
         end
       end
     end
-    
+
     class Migration < File
       def matches?(root)
         file_name = migration_file_name(root, @name)
-        
+
         unless file_name && file_name.exist?
           throw :failure, @name
         end
-        
+
         check_contents(file_name)
       end
-      
+
       protected
-      
+
       def migration_file_name(root, name) #:nodoc:
         directory, file_name = ::File.dirname(root.join(name)), ::File.basename(name).sub(/\.rb$/, '')
         migration = Dir.glob("#{directory}/[0-9]*_*.rb").grep(/\d+_#{file_name}.rb$/).first
@@ -83,7 +83,7 @@ module GeneratorSpec
       def location(name)
         [@root, name].compact.join("/")
       end
-      
+
       def migration(name, &block)
         @tree[name] = Migration.new(location(name), &block)
       end
@@ -131,6 +131,7 @@ module GeneratorSpec
     end
 
     def have_structure(&block)
+      description = "File and directory structure"
       error = 'You must pass a block to have_structure (Use {} instead of do/end!)'
       raise RuntimeError, error unless block_given?
       Root.new(&block)
