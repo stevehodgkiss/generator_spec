@@ -4,6 +4,11 @@ module GeneratorSpec
     # https://github.com/carlhuda/beard
 
     class File
+
+      def description
+        'file attributes and content'
+      end
+
       def initialize(name, &block)
         @contents = []
         @name = name
@@ -39,6 +44,10 @@ module GeneratorSpec
     end
 
     class Migration < File
+      def description
+        'valid migration file'
+      end
+
       def matches?(root)
         file_name = migration_file_name(root, @name)
 
@@ -60,6 +69,10 @@ module GeneratorSpec
 
     class Directory
       attr_reader :tree
+
+      def description
+        'has directory structure'
+      end
 
       def initialize(root = nil, &block)
         @tree = {}
@@ -110,6 +123,10 @@ module GeneratorSpec
     end
 
     class Root < Directory
+      def description
+        'have specified directory structure'
+      end
+
       def failure_message
         if @failure.is_a?(Array) && @failure[0] == :not
           "Structure should not have had #{@failure[1]}, but it did"
@@ -131,7 +148,6 @@ module GeneratorSpec
     end
 
     def have_structure(&block)
-      description = "File and directory structure"
       error = 'You must pass a block to have_structure (Use {} instead of do/end!)'
       raise RuntimeError, error unless block_given?
       Root.new(&block)
