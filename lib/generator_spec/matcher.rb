@@ -2,11 +2,17 @@ module GeneratorSpec
   module Matcher
     # Taken (with permission) from beard by Yahuda Katz
     # https://github.com/carlhuda/beard
-  
+
     class File
+
+      def description
+        'file attributes and content'
+      end
+
       def initialize(name, &block)
         @contents = []
         @name = name
+        @negative_contents = []
 
         if block_given?
           instance_eval(&block)
@@ -17,6 +23,10 @@ module GeneratorSpec
         @contents << text
       end
 
+      def does_not_contain(text)
+        @negative_contents << text
+      end
+
       def matches?(root)
         unless root.join(@name).exist?
           throw :failure, root.join(@name)
@@ -24,9 +34,9 @@ module GeneratorSpec
 
         check_contents(root.join(@name))
       end
-      
+
       protected
-      
+
       def check_contents(file)
         contents = ::File.read(file)
 
@@ -35,22 +45,32 @@ module GeneratorSpec
             throw :failure, [file, string, contents]
           end
         end
+
+        @negative_contents.each do |string|
+          if contents.include?(string)
+            throw :failure, [:not, file, string, contents]
+          end
+        end
       end
     end
-    
+
     class Migration < File
+      def description
+        'valid migration file'
+      end
+
       def matches?(root)
         file_name = migration_file_name(root, @name)
-        
+
         unless file_name && file_name.exist?
           throw :failure, @name
         end
-        
+
         check_contents(file_name)
       end
-      
+
       protected
-      
+
       def migration_file_name(root, name) #:nodoc:
         directory, file_name = ::File.dirname(root.join(name)), ::File.basename(name).sub(/\.rb$/, '')
         migration = Dir.glob("#{directory}/[0-9]*_*.rb").grep(/\d+_#{file_name}.rb$/).first
@@ -60,6 +80,10 @@ module GeneratorSpec
 
     class Directory
       attr_reader :tree
+
+      def description
+        'has directory structure'
+      end
 
       def initialize(root = nil, &block)
         @tree = {}
@@ -83,7 +107,7 @@ module GeneratorSpec
       def location(name)
         [@root, name].compact.join("/")
       end
-      
+
       def migration(name, &block)
         @tree[name] = Migration.new(location(name), &block)
       end
@@ -110,9 +134,17 @@ module GeneratorSpec
     end
 
     class Root < Directory
+      def description
+        'have specified directory structure'
+      end
+
       def failure_message
         if @failure.is_a?(Array) && @failure[0] == :not
-          "Structure should not have had #{@failure[1]}, but it did"
+          if @failure.length > 2
+            "Structure should have #{@failure[1]} without #{@failure[2]}. It had:\n#{@failure[3]}"
+          else
+            "Structure should not have had #{@failure[1]}, but it did"
+          end
         elsif @failure.is_a?(Array)
           "Structure should have #{@failure[0]} with #{@failure[1]}. It had:\n#{@failure[2]}"
         else
