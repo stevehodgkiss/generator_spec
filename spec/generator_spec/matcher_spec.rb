@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'tmpdir'
 
-TMP_ROOT = Pathname.new(Dir.tmpdir)
+TMP_ROOT = Pathname.new(Dir.tmpdir).join('generator')
 
 describe TestGenerator, 'using custom matcher' do
   include GeneratorSpec::TestCase
@@ -72,6 +72,7 @@ module GeneratorSpec
         let(:location) { TMP_ROOT.join('test_file') }
 
         context 'with no contains' do
+
           it 'doesnt throw if the file exists' do
             write_file(location, '')
             expect {
@@ -84,6 +85,7 @@ module GeneratorSpec
               file.matches?(TMP_ROOT)
             }.to throw_symbol(:failure)
           end
+
         end
 
         context 'with contains' do
