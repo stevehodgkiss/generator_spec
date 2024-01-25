@@ -12,6 +12,7 @@ module GeneratorSpec
       def initialize(name, &block)
         @contents = []
         @name = name
+        @negative_contents = []
 
         if block_given?
           instance_eval(&block)
@@ -20,6 +21,10 @@ module GeneratorSpec
 
       def contains(text)
         @contents << text
+      end
+
+      def does_not_contain(text)
+        @negative_contents << text
       end
 
       def matches?(root)
@@ -38,6 +43,12 @@ module GeneratorSpec
         @contents.each do |string|
           unless contents.include?(string)
             throw :failure, [file, string, contents]
+          end
+        end
+
+        @negative_contents.each do |string|
+          if contents.include?(string)
+            throw :failure, [:not, file, string, contents]
           end
         end
       end
@@ -129,7 +140,11 @@ module GeneratorSpec
 
       def failure_message
         if @failure.is_a?(Array) && @failure[0] == :not
-          "Structure should not have had #{@failure[1]}, but it did"
+          if @failure.length > 2
+            "Structure should have #{@failure[1]} without #{@failure[2]}. It had:\n#{@failure[3]}"
+          else
+            "Structure should not have had #{@failure[1]}, but it did"
+          end
         elsif @failure.is_a?(Array)
           "Structure should have #{@failure[0]} with #{@failure[1]}. It had:\n#{@failure[2]}"
         else
