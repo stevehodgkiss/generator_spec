@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'tmpdir'
 
-TMP_ROOT = Pathname.new(Dir.tmpdir).join('generator')
+TMP_ROOT = Pathname.new(Dir.mktmpdir('generator_spec'))
 
 describe TestGenerator, 'using custom matcher' do
   include GeneratorSpec::TestCase
